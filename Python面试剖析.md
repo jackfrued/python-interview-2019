@@ -76,15 +76,15 @@
 
 10. 熟悉Nginx、uWSGI、Gunicorn、MySQL、Redis等服务器的配置和使用，熟Docker、Docker-Compose、Docker-Swarm等工具在项目部署中的应用。
 
-  > 问题1：之前项目部署一共用了多少台服务器？有没有跳板机？有没有配置VPC？
-  >
-  > 问题2：如何通过Dockerfile来创建容器？
-  >
-  > 问题3：说一下WSGI是什么；比较一下uWSGI和Gunicorn。
-  >
-  > 问题4：微服务架构有什么优点？项目中是否使用过微服务架构？
-  >
-  > 问题5：如何通过Nginx部署反向代理？如何部署Keepalived服务并说明其作用？
+   > 问题1：之前项目部署一共用了多少台服务器？有没有跳板机？有没有配置VPC？
+   >
+   > 问题2：如何通过Dockerfile来创建容器？
+   >
+   > 问题3：说一下WSGI是什么；比较一下uWSGI和Gunicorn。
+   >
+   > 问题4：微服务架构有什么优点？项目中是否使用过微服务架构？
+   >
+   > 问题5：如何通过Nginx部署反向代理？如何部署Keepalived服务并说明其作用？
 
 ### 项目经验解读
 
