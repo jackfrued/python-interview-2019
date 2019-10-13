@@ -1,6 +1,10 @@
-## Python开发工程师笔试题
+### Python开发工程师笔试题2
 
-> 答题要求：将该项目从[地址1](<https://github.com/jackfrued/python-interview-2019>)或[地址2](<https://gitee.com/jackfrued/python-interview-2019>)fork到自己的[github]()或[gitee]()仓库并填写答案，完成之后将自己的仓库（public）地址发给面试官即可，答题时间120分钟。
+> **答题要求**：将该项目从[地址1](<https://github.com/jackfrued/python-interview-2019>)或[地址2](<https://gitee.com/jackfrued/python-interview-2019>)**fork**到自己的[GitHub](<https://github.com/>)或[Gitee](https://gitee.com)仓库并在线填写答案，完成后以发送合并请求（**Pull Request**）的方式提交自己的工作成果，时间120分钟。
+
+#### 答题人：
+
+#### 题目：
 
 1. 下面的Python代码会输出什么。
 
@@ -85,11 +89,7 @@
    
    ```
 
-7. 写一个函数，实现将输入的长链接转换成短链接，每个长链接对应的短链接必须是独一无二的且每个长链接只应该对应到一个短链接，假设短链接统一以`http://t.cn/`开头。
-
-   > 参数：`http://jackfrued.xyz/api/users/10001`
-   >
-   > 返回：`http://t.cn/E6MUth1`
+7. 写一个函数，实现将输入的长链接转换成短链接的功能（类似于新浪微博那样），每个长链接对应的短链接必须是不同且唯一的。例如：给出一个长链接`http://jackfrued.top/api/users/10001?a=b&c=d`，会返回对应的短链接`http://t.cn/E6MUth1`。
 
    答案：
 
