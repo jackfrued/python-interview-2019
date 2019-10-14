@@ -2,7 +2,7 @@
 
 > **答题要求**：将该项目从[地址1](<https://github.com/jackfrued/python-interview-2019>)或[地址2](<https://gitee.com/jackfrued/python-interview-2019>)**fork**到自己的[GitHub](<https://github.com/>)或[Gitee](https://gitee.com)仓库并在线填写答案，完成后以发送合并请求（**Pull Request**）的方式提交自己的工作成果，时间120分钟。
 
-#### 答题人：
+#### 答题人：叶小永
 
 #### 题目：
 
@@ -15,6 +15,9 @@
    ```
 
    答案：
+   [('a', '1'), ('b', '2'), ('c', '3'), ('d', '4')]
+   {1: 'item1', 3: 'item9'}
+   9
 
    ```
    
@@ -29,7 +32,7 @@
    print(reduce(int.__add__, map(lambda x: x // 2, filter(lambda x: x ** 2 > 150, items))))
    ```
 
-   答案：
+   答案：[6, 7]
 
    ```
    
@@ -40,7 +43,7 @@
    答案：
 
    ```Python
-   
+   [x for x in items if x ** 2 > 150]
    ```
 
 4. 用一行代码实现将字符串`k1:v1|k2:v2|k3:v3`处理成字典`{'k1': 'v1', 'k2': 'v2', 'k3': 'v3'}`。
@@ -48,7 +51,7 @@
    答案：
 
    ```Python
-   
+   {item.split(':')[0]: item.split(':')[1] for item in 'k1:v1|k2:v2|k3:v3'.split('|')}
    ```
 
 5. 写一个装饰函数的装饰器，实现如果函数的返回值是字符串类型，就将该字符串每个单词的首字母大写（不用考虑非英文字符串的情况）。
@@ -56,7 +59,12 @@
    答案：
 
    ```Python
-   
+   def wrapper(func):
+       def f(*args, **kwargs):
+           result = func(*args, **kwargs)
+           if instance(result, 'str'):
+               return result.Capitalize()
+       return f
    ```
 
 6. 下面的字典中保存了某些公司股票的代码（字典中的键）及价格（字典中的值，以美元为单位），用一行代码从中找出价格最高的股票对应的股票代码，再用一行代码将股价高于100美元的股票创建成一个新的字典。
@@ -78,7 +86,8 @@
    答案：
 
    ```Python
-   
+   [(x, y) for (x, y) in prices.items() if y == max(prices.values())]
+   {x: y for x, y in prices.items() if y > 100}
    ```
 
 7. 写一个函数，返回删除列表中重复元素后的新列表，要求保留原有列表元素的顺序。
@@ -86,7 +95,11 @@
    答案：
 
    ```Python
-   
+   def del_item(arr):
+       for item in arr[:]:
+           if arr.count(item) > 1:
+               arr.remove(item)
+       return arr
    ```
 
 8. 写一个函数，该函数的参数是一个保存字符串的列表，列表中某个字符串出现次数占列表元素总数的半数以上，找出并返回这个字符串。
@@ -94,7 +107,11 @@
    答案：
 
    ```Python
-   
+   def find_item(arr):
+       for item in arr:
+           if arr.count(item) >= len(arr) / 2:
+               return item 
+           return None
    ```
 
 9. MySQL关系型数据库中有三张表分别表示用户、房源和租房记录，表结构如下所示。
@@ -146,7 +163,30 @@
    答案：
 
    ```SQL
+   select u.username
+   from tb_record as r
+   inner join tb_user as u
+   on r.userid = u.userid
+   where r.houseid = 1055;
+
+   select u.username
+   from tb_user as u
+   inner join 
+   (select r.userid, count(r.userid)
+   from tb_record as r
+   group by r.userid
+   having count(r.userid) > 3) as tmp
+   on tmp.userid = u.userid
+   where u.usertel not null;
    
+   select h.houseid, h.title
+   from tb_house as h 
+   inner join 
+   (select r.houseid
+   from tb_record as r
+   where r.indate.like('2018'%)) as tmp
+   on tmp.houseid = h.houseid
+   where h.rented == 1 and h.area > 50;
    ```
 
 10. 请阐述访问一个用Django或Flask开发的Web应用，从用户在浏览器中输入网址回车到浏览器收到Web页面的整个过程中，到底发生了哪些事情，越详细越好。
@@ -154,7 +194,14 @@
     答案：
 
     ```
-    
+    用户输入网址回车后，会发送一个request请求，会经过一个请求中间件；
+    Django或Flask会根据这个网址去寻找接口；
+    从url分发路径中找到相应的函数，到View层；
+    View层到相应的模型层Model去查找数据，这里有一个ORM关系模型映射；
+    Model层去访问数据库，拿到数据后，View层将数据返给Templates并渲染；
+    Templates会拿到渲染的页面，然后返回一个response；
+    response响应会经过一个响应中间件，丢给web浏览器；
+    最后，用户在浏览器中看到渲染后的页面；
     ```
 
 11. 请阐述HTTPS的工作原理以及TCP是如何保证端到端可靠传输的。
@@ -162,7 +209,10 @@
     答案：
 
     ```
-    
+    HTTPS以443作为数据端口，在http基础上加上了一层SSL加密层来保证数据的加密性；
+    在应用层调用HTTPS请求，向下经过传输层（TCP/UDP传输协议），再经过网络层（IP寻址）的地址解析协议ARP，最后经过网络接口层（也就是数据链路层和物理层）将数据流发送给对方；对方在经过从下到上的拆包工作还原数据；
+
+    TCP的端到端可靠传输是基于TCP的三次握手和四次挥手的；首先客户端会向服务端发送一个SYN报文和序号seq=x，并进入同步已发送状态；服务端收到这个报文，向客户端回一个ACK=1确认报文和SYN=1以及ack=x+1，seq=y；客户端收到确认报文后向服务端发送ACK=1，seq=x+1，ack=y+1，然后双方建立连接，可以进行数据传输；
     ```
 
 12. 在Linux系统中，假设Nginx的访问日志位于`/var/log/nginx/access.log`，该文件的每一行代表一条访问记录，每一行都由若干列（以制表键分隔）构成，其中第1列记录了访问者的IP地址，如下所示。请用一行命令找出最近的100000次访问中，访问频率最高的IP地址及访问次数。
@@ -181,5 +231,5 @@
     答案：
 
     ```Shell
-    
+    tail -n 100000 /var/log/nginx/access.log
     ```
