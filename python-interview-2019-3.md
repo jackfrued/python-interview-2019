@@ -14,12 +14,9 @@
    print(len({x for x in 'hello world' if x not in 'abcdefg'}))
    ```
 
-   答案：
+   答案： [(a,1),(b,2),(c,3),(d,4)] {1:item1,3:item9}  6
 
    ```
-  [(a,1),(b,2),(c,3),(d,4)]
-  {1:item1,3:item9}
-  6
 
    
    ```
@@ -44,13 +41,12 @@
    答案：
 
    ```Python
-  items = [11, 12, 13, 14]
-  print(sum([x//2 for x in items if x**2 > 150]))
+    items = [11, 12, 13, 14]
+    print(sum([x//2 for x in items if x**2 > 150]))
    ```
-
 4. 用一行代码实现将字符串`k1:v1|k2:v2|k3:v3`处理成字典`{'k1': 'v1', 'k2': 'v2', 'k3': 'v3'}`。
 
-   答案：
+   答案：   
 
    ```Python
    print({i.split(':')[0]:i.split(':')[1] for i in s1.split('|')})
@@ -58,16 +54,15 @@
 
 5. 写一个装饰函数的装饰器，实现如果函数的返回值是字符串类型，就将该字符串每个单词的首字母大写（不用考虑非英文字符串的情况）。
 
-   答案：
+   答案：  
 
    ```Python
-  def foo1(func1,args,kwargs):
-    def foo2(args,kwargs):
-      result = func1()
-      if type(result) == str:
-        return result.upper()
-    return foo2
-
+    def foo1(func1,args,kwargs):
+      def foo2(args,kwargs):
+        result = func1()
+        if type(result) == str:
+          return result.title()
+      return foo2
    ```
 
 6. 下面的字典中保存了某些公司股票的代码（字典中的键）及价格（字典中的值，以美元为单位），用一行代码从中找出价格最高的股票对应的股票代码，再用一行代码将股价高于100美元的股票创建成一个新的字典。
@@ -98,8 +93,8 @@
    答案：
 
    ```Python
-  def foo1(list1):
-    return list(set(list1))
+    def foo1(list1):
+      return list(set(list1))
    ```
 
 8. 写一个函数，该函数的参数是一个保存字符串的列表，列表中某个字符串出现次数占列表元素总数的半数以上，找出并返回这个字符串。
@@ -107,17 +102,16 @@
    答案：
 
    ```Python
-  def foo1(list1):
-    l1 = len(list1)
-    flag = l1 // 2
-    x1 = {}
-    for i in list1:
-      if i not in x1.keys():
-        x1[i] = 1
-      else:
-        x1[i] += 1
+    def foo1(list1):
+      l1 = len(list1)
+      flag = l1 // 2
+      x1 = {}
+      for i in list1:
+        if i not in x1.keys():
+          x1[i] = 1
+        else:
+          x1[i] += 1
     return([key for key, value in x1.items() if value > flag][0])
-
    ```
 
 9. MySQL关系型数据库中有三张表分别表示用户、房源和租房记录，表结构如下所示。
@@ -232,6 +226,6 @@
     答案：
 
     ```Shell
-    
+
     
     ```
