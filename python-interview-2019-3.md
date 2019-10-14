@@ -2,7 +2,7 @@
 
 > **答题要求**：将该项目从[地址1](<https://github.com/jackfrued/python-interview-2019>)或[地址2](<https://gitee.com/jackfrued/python-interview-2019>)**fork**到自己的[GitHub](<https://github.com/>)或[Gitee](https://gitee.com)仓库并在线填写答案，完成后以发送合并请求（**Pull Request**）的方式提交自己的工作成果，时间120分钟。
 
-#### 答题人：
+#### 答题人：何川
 
 #### 题目：
 
@@ -17,7 +17,9 @@
    答案：
 
    ```
-   
+   [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+   {1: 'item1', 3: 'item9'}
+   8
    ```
 
 2. 下面的Python代码会输出什么。
@@ -32,6 +34,7 @@
    答案：
 
    ```
+   1
    
    ```
 
@@ -40,6 +43,7 @@
    答案：
 
    ```Python
+   print(reduce(int.__add__, [x//2, for x in (for x in items if x ** 2> 150)]))
    
    ```
 
@@ -48,7 +52,7 @@
    答案：
 
    ```Python
-   
+   {key: value for k_v.split(':', 0), k_v.split(':', 1) in [for k_v in 'k1:v1|k2:v2|k3:v3'.split('|', 0)]}
    ```
 
 5. 写一个装饰函数的装饰器，实现如果函数的返回值是字符串类型，就将该字符串每个单词的首字母大写（不用考虑非英文字符串的情况）。
@@ -56,7 +60,14 @@
    答案：
 
    ```Python
-   
+   def Upper_case(func):
+       if type(func) == str:
+           new_str = ''
+           for i in str.split(' '):
+               i.capitalize()
+               new_str += i
+           return new_str 
+                   
    ```
 
 6. 下面的字典中保存了某些公司股票的代码（字典中的键）及价格（字典中的值，以美元为单位），用一行代码从中找出价格最高的股票对应的股票代码，再用一行代码将股价高于100美元的股票创建成一个新的字典。
@@ -78,7 +89,10 @@
    答案：
 
    ```Python
-   
+   new_dict = sorted(prices.items, 'value')
+   highest_stock = new_dict[-1]
+   new_dict = {k: v for k, v in prices if v >= 100}
+
    ```
 
 7. 写一个函数，返回删除列表中重复元素后的新列表，要求保留原有列表元素的顺序。
@@ -86,7 +100,12 @@
    答案：
 
    ```Python
-   
+   def foo(list1)
+       list2 = []
+       for i in list1:
+           if i not in list2:
+               list2.append(i)
+       return list2
    ```
 
 8. 写一个函数，该函数的参数是一个保存字符串的列表，列表中某个字符串出现次数占列表元素总数的半数以上，找出并返回这个字符串。
@@ -94,6 +113,12 @@
    答案：
 
    ```Python
+   from collections import Counter
+   def find_str(list):
+       c = Counter(list)
+       for item in c:
+           if item.value >= len(list)/2:
+               return item.key
    
    ```
 
@@ -146,7 +171,23 @@
    答案：
 
    ```SQL
-   
+   select t1.username 
+   from tb_user t1 
+   join tb_record t2 on t1.userid = t2.userid 
+   where houseid = 1055;
+   select t1.username from tb_user t1
+   where usertrl <> null 
+   join tb_record t2 on t1.userid = t2.userid
+   where count(t2.userid)>=3;
+   select t1.houseid, title
+   from tb_house t1
+   where area>=50 and rented=0
+   join 
+   (select houseid, indate
+   from tb_record t2 
+   where indate between 2018-1-1 and 2018-12-31) t3
+   on t1.houseid = t3.houseid
+   where count(t3.indate)>=2 
    ```
 
 10. 请阐述访问一个用Django或Flask开发的Web应用，从用户在浏览器中输入网址回车到浏览器收到Web页面的整个过程中，到底发生了哪些事情，越详细越好。
@@ -154,7 +195,10 @@
     答案：
 
     ```
-    
+    1.浏览器对域名解析，找到对应的一个或多个IP地址，访问相关端口（一般是80/443）
+    2.服务端监听相应端口的服务器或者代理服务器（uwsgi/nginx等）收到请求，将相关任务分发到
+    a.静态服务器（nginx/apache等）获取静态资源b.通过视图调用数据库数据
+    3.通过代理服务器返回数据到浏览器
     ```
 
 11. 请阐述HTTPS的工作原理以及TCP是如何保证端到端可靠传输的。
