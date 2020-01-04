@@ -60,12 +60,6 @@
 
 8. 熟悉Web前端开发的语言和框架，对HTML、CSS和JavaScript有较好的理解和掌握，熟悉Ajax和WebSocket相关技术，有在项目中使用jQuery、Axios、Fetch、Vue.js、Bootstrap、sockjs、stomp.js、ECharts等技术的经验。
 
-   > 问题1：
-   >
-   > 问题2：
-   >
-   > 问题3：
-
 9. 熟练的使用Git和Mercury实施项目的版本控制，对缺陷管理和持续集成有一定程度的了解，使用过AB、mysqlslap、sysbench等压力测试工具。
 
    > 问题1：说一下之前公司项目开发使用的过程模型以及是否使用了敏捷开发。
@@ -76,15 +70,15 @@
 
 10. 熟悉Nginx、uWSGI、Gunicorn、MySQL、Redis等服务器的配置和使用，熟Docker、Docker-Compose、Docker-Swarm等工具在项目部署中的应用。
 
-    > 问题1：之前项目部署一共用了多少台服务器？有没有跳板机？有没有配置VPC？
-    >
-    > 问题2：如何通过Dockerfile来创建容器？
-    >
-    > 问题3：说一下WSGI是什么；比较一下uWSGI和Gunicorn。
-    >
-    > 问题4：微服务架构有什么优点？项目中是否使用过微服务架构？
-    >
-    > 问题5：如何通过Nginx部署反向代理？如何部署Keepalived服务并说明其作用？
+   > 问题1：之前项目部署一共用了多少台服务器？有没有跳板机？有没有配置VPC？
+   >
+   > 问题2：如何通过Dockerfile来创建容器？
+   >
+   > 问题3：说一下WSGI是什么；比较一下uWSGI和Gunicorn。
+   >
+   > 问题4：微服务架构有什么优点？项目中是否使用过微服务架构？
+   >
+   > 问题5：如何通过Nginx部署反向代理？如何部署Keepalived服务并说明其作用？
 
 ### 项目经验解读
 

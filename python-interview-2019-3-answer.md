@@ -17,7 +17,9 @@
    答案：
 
    ```
-   
+   [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+   {1: 'item1', 3: 'item9'}
+   6
    ```
 
 2. 下面的Python代码会输出什么。
@@ -32,7 +34,7 @@
    答案：
 
    ```
-   
+   13
    ```
 
 3. 对于第2题的代码，如果要实现相同的功能，用生成式应该怎么写？
@@ -40,7 +42,7 @@
    答案：
 
    ```Python
-   
+   print(sum([x // 2 for x in items if x ** 2 > 150])) 
    ```
 
 4. 用一行代码实现将字符串`k1:v1|k2:v2|k3:v3`处理成字典`{'k1': 'v1', 'k2': 'v2', 'k3': 'v3'}`。
@@ -48,7 +50,7 @@
    答案：
 
    ```Python
-   
+   {key: value for key, value in (item.split(':') for item in 'k1:v1|k2:v2|k3:v3'.split('|'))} 
    ```
 
 5. 写一个装饰函数的装饰器，实现如果函数的返回值是字符串类型，就将该字符串每个单词的首字母大写（不用考虑非英文字符串的情况）。
@@ -56,7 +58,19 @@
    答案：
 
    ```Python
+   from functools import wraps
    
+   
+   def change_string(func):
+   
+       @wraps(func)
+       def wrapper(*args, **kwargs):
+           result = func(*args, **kwargs)
+           if isinstance(result, str):
+               result = result.title()
+           return result
+       
+       return wrapper
    ```
 
 6. 下面的字典中保存了某些公司股票的代码（字典中的键）及价格（字典中的值，以美元为单位），用一行代码从中找出价格最高的股票对应的股票代码，再用一行代码将股价高于100美元的股票创建成一个新的字典。
@@ -78,7 +92,8 @@
    答案：
 
    ```Python
-   
+   max(prices, key=lambda x: prices[x]) 
+   {key: value for key, value in prices.items() if value > 100} 
    ```
 
 7. 写一个函数，返回删除列表中重复元素后的新列表，要求保留原有列表元素的顺序。
@@ -86,7 +101,13 @@
    答案：
 
    ```Python
-   
+   def remove_dup(items):
+       results, elems = [], set()
+       for item in items:
+           if item not in elems:
+               elems.add(item)
+               results.append(item)
+       return results
    ```
 
 8. 写一个函数，该函数的参数是一个保存字符串的列表，列表中某个字符串出现次数占列表元素总数的半数以上，找出并返回这个字符串。
@@ -94,7 +115,17 @@
    答案：
 
    ```Python
-   
+   def find_half_more(items):
+       temp, times = None, 0
+       for item in items:
+           if times == 0:
+               temp = item
+               times = 1
+           elif item == temp:
+               times += 1
+           else:
+               times -= 1
+       return temp
    ```
 
 9. MySQL关系型数据库中有三张表分别表示用户、房源和租房记录，表结构如下所示。
@@ -107,7 +138,7 @@
    +----------+-------------+------+-----+---------+----------------+
    | userid   | int(11)     | NO   | PRI | NULL    | 用户编号        |
    | username | varchar(31) | NO   |     | NULL    | 用户姓名        |
-   | usertel  | char(11)    | YES  |     | NULL    | 用户手机        |
+   | usertel  | char(11)    | NO   |     | NULL    | 用户手机        |
    +----------+-------------+------+-----+---------+----------------+
    ```
 
@@ -140,22 +171,34 @@
    ```
 
    - 查询租过编号为1055的房源的用户姓名。
+
+     ```SQL
+     select username from tb_user where userid in (select distinct userid from tb_record where houseid=1055);
+     ```
+
+     ```SQL
+     select username from tb_user t1 where exists (select 'x' from tb_record t2 where t2.userid=t1.userid and houseid=1005);
+     ```
+
    - 查询租过三套以上房子且登记了手机号码的用户姓名。
+
+     ```SQL
+     select username from tb_user where usertel is not null and userid in (select userid from tb_record group by userid having count(userid)>3);
+     ```
+
    - 查询2018年被租过两次以上目前仍然处于出租状态且面积超过50平米的房源编号和标题。
 
-   答案：
-
-   ```SQL
-   
-   ```
+     ```SQL
+     select houseid, title from tb_house where houseid in (select houseid from tb_record where indate between '2018-1-1' and '2018-12-31' group by houseid having count(houseid)>2) and area>50 and rented=1;
+     ```
 
 10. 请阐述访问一个用Django或Flask开发的Web应用，从用户在浏览器中输入网址回车到浏览器收到Web页面的整个过程中，到底发生了哪些事情，越详细越好。
 
-    答案：
+   答案：
 
-    ```
-    
-    ```
+   ```
+   
+   ```
 
 11. 请阐述HTTPS的工作原理以及TCP是如何保证端到端可靠传输的。
 
@@ -181,5 +224,5 @@
     答案：
 
     ```Shell
-    
+    tail -100000 /var/log/nginx/access.log | awk '{print $1}' | sort | uniq -c | sort -r | head -1
     ```
